@@ -2,7 +2,7 @@
 title: "Implementazione dell'orchestratore P2P"
 slug: orchestratore-p2p
 pubDate: 2025-07-10
-category: "Architettura"
+category: "ARCHITETTURA"
 author: "Team DIP"
 description: "Come abbiamo risolto il problema del coordinamento distribuito senza server centrale."
 ---

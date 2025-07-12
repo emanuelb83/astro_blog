@@ -2,7 +2,7 @@
 title: "Integrazione di Blender nella pipeline distribuita"
 slug: integrazione-blender
 pubDate: 2025-07-05
-category: "Grafica 3D"
+category: "SVILUPPO"
 author: "Team DIP"
 description: "Come abbiamo collegato Blender alla piattaforma distribuita per l'importazione e sincronizzazione di scene 3D."
 ---
