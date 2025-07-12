@@ -1,139 +1,33 @@
 ---
+import NavBar from '../components/NavBar.astro'
 import './src/styles/global.css'
----
+import Hero from '../components/Hero.astro'
+import Concept from '../components/Concept.astro'
+import Contribute from '../components/Contribute.astro'
+import BlogList from '../components/BlogList.astro'
+import Footer from '../components/Footer.astro'
 
+
+---
 
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Distributed Interactive Platform - Una nuova architettura P2P</title>
+      <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></link>
     <meta name="description" content="Framework distribuito per esperienze interattive modulari basato su peer-to-peer, Babylon.js e ECSY" />
   </head>
  <body class="bg-slate-900 text-white min-h-screen">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-slate-900/90 backdrop-blur-sm border-b border-slate-800 z-50">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 bg-gradient-to-br from-tech-blue to-tech-purple rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-sm">DIP</span>
-                    </div>
-                    <span class="text-xl font-semibold">Distributed Interactive Platform</span>
-                </div>
-                <div class="flex items-center space-x-6">
-                    <a href="#concept" class="text-slate-300 hover:text-white transition-colors">Concetto</a>
-                    <a href="#architecture" class="text-slate-300 hover:text-white transition-colors">Architettura</a>
-                    <a href="#blog" class="text-slate-300 hover:text-white transition-colors">Blog</a>
-                    <a href="#contribute" class="bg-tech-blue hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">Contribuisci</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <NavBar></NavBar>
 
     <!-- Hero Section -->
-    <section class="pt-24 pb-16 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23374151"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>')] opacity-20"></div>
-        <div class="container mx-auto relative z-10">
-            <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                    Una nuova architettura <span class="gradient-text">P2P</span> per esperienze modulari
-                </h1>
-                <p class="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-                    Costruiamo un framework distribuito, scena per scena. Ogni esperienza è caricata, ospitata ed eseguita localmente da diversi peer, senza server centrale.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button onclick="openModal()" class="bg-gradient-to-r from-tech-blue to-tech-purple hover:from-blue-700 hover:to-purple-700 px-8 py-3 rounded-lg text-white font-medium transition-all transform hover:scale-105">
-                        🎬 Guarda la Demo
-                    </button>
-                    <a href="#concept" class="border border-slate-600 hover:border-tech-blue px-8 py-3 rounded-lg text-white font-medium transition-all hover:bg-slate-800">
-                        Scopri di più
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <Hero></Hero>
     <!-- Concept Section -->
-    <section id="concept" class="py-20 px-6">
-        <div class="container mx-auto">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold mb-4">Il concetto in breve</h2>
-                    <p class="text-xl text-slate-300">Un'architettura completamente distribuita per il web interattivo</p>
-                </div>
-                
-                <!-- Architecture Diagram -->
-                <div class="architecture-diagram rounded-xl p-8 mb-12 relative">
-                    <div class="flex items-center justify-center space-x-8 relative z-10">
-                        <div class="text-center">
-                            <div class="network-node w-16 h-16 bg-gradient-to-br from-tech-blue to-tech-purple rounded-full flex items-center justify-center mb-3">
-                                <span class="text-white font-bold">S1</span>
-                            </div>
-                            <p class="text-sm text-slate-300">Scena 1</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl text-tech-blue">↔</div>
-                            <p class="text-xs text-slate-400 mt-1">P2P</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="network-node w-16 h-16 bg-gradient-to-br from-tech-purple to-pink-500 rounded-full flex items-center justify-center mb-3">
-                                <span class="text-white font-bold">S2</span>
-                            </div>
-                            <p class="text-sm text-slate-300">Scena 2</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl text-tech-blue">↔</div>
-                            <p class="text-xs text-slate-400 mt-1">P2P</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="network-node w-16 h-16 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center mb-3">
-                                <span class="text-white font-bold">S3</span>
-                            </div>
-                            <p class="text-sm text-slate-300">Scena 3</p>
-                        </div>
-                    </div>
-                    <div class="mt-8 text-center">
-                        <p class="text-slate-300">Ogni scena è ospitata da un peer diverso, comunicando tramite WebRTC</p>
-                    </div>
-                </div>
-
-                <!-- Key Features -->
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="tech-card rounded-xl p-6 animate-float">
-                        <div class="w-12 h-12 bg-gradient-to-br from-tech-blue to-tech-purple rounded-lg flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">Scene modulari</h3>
-                        <p class="text-slate-300">Ogni esperienza è divisa in moduli indipendenti, ospitati e gestiti da peer diversi nella rete distribuita.</p>
-                    </div>
-                    
-                    <div class="tech-card rounded-xl p-6 animate-float" style="animation-delay: 0.5s">
-                        <div class="w-12 h-12 bg-gradient-to-br from-tech-purple to-pink-500 rounded-lg flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">Caricamento dinamico</h3>
-                        <p class="text-slate-300">Le scene vengono caricate on-demand durante la navigazione, ottimizzando performance e utilizzo della banda.</p>
-                    </div>
-                    
-                    <div class="tech-card rounded-xl p-6 animate-float" style="animation-delay: 1s">
-                        <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-red-500 rounded-lg flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">Nessun server centrale</h3>
-                        <p class="text-slate-300">Architettura completamente distribuita che elimina single point of failure e dipendenze infrastrutturali.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <Concept></Concept>
 
     <!-- Architecture Section -->
     <section id="architecture" class="py-20 px-6 bg-slate-800/50">
@@ -221,130 +115,12 @@ import './src/styles/global.css'
     </section>
 
     <!-- Blog Section -->
-    <section id="blog" class="py-20 px-6">
-        <div class="container mx-auto">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold mb-4">Dev Blog & Aggiornamenti</h2>
-                    <p class="text-xl text-slate-300">Seguici nel nostro percorso di sviluppo</p>
-                </div>
-                
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <article class="blog-card bg-slate-800/50 rounded-xl p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-sm text-tech-blue font-medium">ARCHITETTURA</span>
-                            <span class="text-sm text-slate-400">5 giorni fa</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3">Implementazione dell'orchestratore P2P</h3>
-                        <p class="text-slate-300 mb-4">Come abbiamo risolto il problema del coordinamento distribuito senza server centrale...</p>
-                        <a href="#" class="text-tech-blue hover:text-blue-400 font-medium">Leggi tutto →</a>
-                    </article>
-                    
-                    <article class="blog-card bg-slate-800/50 rounded-xl p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-sm text-tech-purple font-medium">SVILUPPO</span>
-                            <span class="text-sm text-slate-400">1 settimana fa</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3">Integrazione Blender → Babylon.js</h3>
-                        <p class="text-slate-300 mb-4">Pipeline automatizzata per l'esportazione di scene 3D modulari da Blender...</p>
-                        <a href="#" class="text-tech-purple hover:text-purple-400 font-medium">Leggi tutto →</a>
-                    </article>
-                    
-                    <article class="blog-card bg-slate-800/50 rounded-xl p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-sm text-pink-500 font-medium">PERFORMANCE</span>
-                            <span class="text-sm text-slate-400">2 settimane fa</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3">Ottimizzazione ECSY per WebGL</h3>
-                        <p class="text-slate-300 mb-4">Tecniche di ottimizzazione per l'Entity Component System in ambienti grafici...</p>
-                        <a href="#" class="text-pink-500 hover:text-pink-400 font-medium">Leggi tutto →</a>
-                    </article>
-                    
-                    <article class="blog-card bg-slate-800/50 rounded-xl p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-sm text-green-500 font-medium">NETWORKING</span>
-                            <span class="text-sm text-slate-400">3 settimane fa</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3">WebRTC: gestione della latenza</h3>
-                        <p class="text-slate-300 mb-4">Strategie per minimizzare la latenza nelle comunicazioni peer-to-peer...</p>
-                        <a href="#" class="text-green-500 hover:text-green-400 font-medium">Leggi tutto →</a>
-                    </article>
-                    
-                    <article class="blog-card bg-slate-800/50 rounded-xl p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-sm text-orange-500 font-medium">DEMO</span>
-                            <span class="text-sm text-slate-400">1 mese fa</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3">Prima demo funzionante</h3>
-                        <p class="text-slate-300 mb-4">Milestone raggiunta: la prima navigazione P2P tra scene distribuite...</p>
-                        <a href="#" class="text-orange-500 hover:text-orange-400 font-medium">Leggi tutto →</a>
-                    </article>
-                    
-                    <article class="blog-card bg-slate-800/50 rounded-xl p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-sm text-cyan-500 font-medium">ROADMAP</span>
-                            <span class="text-sm text-slate-400">1 mese fa</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3">Roadmap del progetto</h3>
-                        <p class="text-slate-300 mb-4">I prossimi step verso un framework completo per esperienze distribuite...</p>
-                        <a href="#" class="text-cyan-500 hover:text-cyan-400 font-medium">Leggi tutto →</a>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <BlogList></BlogList>
     <!-- CTA Section -->
-    <section id="contribute" class="py-20 px-6 bg-gradient-to-r from-tech-blue to-tech-purple">
-        <div class="container mx-auto">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-4xl font-bold mb-6">Costruiamo insieme il futuro distribuito</h2>
-                <p class="text-xl text-blue-100 mb-8">
-                    Questo è più di un progetto: è una nuova visione per il web interattivo. 
-                    Unisciti a noi per plasmare l'architettura del domani.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#" data-action="subscribe" class="bg-white text-tech-blue hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition-all transform hover:scale-105">
-                        📧 Iscriviti agli aggiornamenti
-                    </a>
-                    <a href="#" data-action="github" class="border border-white text-white hover:bg-white hover:text-tech-blue px-8 py-3 rounded-lg font-medium transition-all">
-                        💻 GitHub (presto disponibile)
-                    </a>
-                    <a href="#" data-action="contribute" class="border border-white text-white hover:bg-white hover:text-tech-blue px-8 py-3 rounded-lg font-medium transition-all">
-                        👥 Diventa early contributor
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+<Contribute></Contribute>
 
     <!-- Footer -->
-    <footer class="bg-slate-800 py-12 px-6">
-        <div class="container mx-auto">
-            <div class="max-w-4xl mx-auto text-center">
-                <div class="flex items-center justify-center space-x-3 mb-6">
-                    <div class="w-10 h-10 bg-gradient-to-br from-tech-blue to-tech-purple rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold">DIP</span>
-                    </div>
-                    <span class="text-xl font-semibold">Distributed Interactive Platform</span>
-                </div>
-                <p class="text-slate-400 mb-6">
-                    Un framework open source per esperienze interattive distribuite
-                </p>
-                <div class="flex justify-center space-x-6">
-                    <a href="#" class="text-slate-400 hover:text-white transition-colors">Documentazione</a>
-                    <a href="#" class="text-slate-400 hover:text-white transition-colors">API Reference</a>
-                    <a href="#" class="text-slate-400 hover:text-white transition-colors">Community</a>
-                    <a href="#" class="text-slate-400 hover:text-white transition-colors">Contatti</a>
-                </div>
-                <div class="border-t border-slate-700 mt-8 pt-8">
-                    <p class="text-slate-500 text-sm">
-                        © 2025 Distributed Interactive Platform. Progetto open source.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+<Footer></Footer>
 
     <!-- Video Modal -->
     <div id="videoModal" class="modal">
@@ -501,6 +277,38 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
         });
+
+
+
+
+
+
     </script>
+    <script is:inline>
+// Gestione speciale per hash link dal blog
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href^="#"], a[href^="/#"]');
+  if (!link) return;
+
+  const href = link.getAttribute('href');
+  const isFromBlog = window.location.pathname.startsWith('/blog');
+
+  // Se siamo nel blog e clicchiamo un hash link
+  if (isFromBlog && href.startsWith('#')) {
+    e.preventDefault();
+    window.location.href = `/${href}`;
+    return;
+  }
+
+  // Se siamo nel blog e clicchiamo un link homepage-hash
+  if (isFromBlog && href.startsWith('/#')) {
+    e.preventDefault();
+    window.location.href = href;
+    return;
+  }
+});
+</script>
+
+
   </body>
 </html>

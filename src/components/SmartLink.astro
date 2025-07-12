@@ -1,0 +1,34 @@
+---
+// src/components/SmartLink.astro
+const { href, className = '' } = Astro.props;
+const currentUrl = Astro.url;
+
+const isHashLink = href.startsWith('#');
+const isHomepageHashLink = href.startsWith('/#');
+const isExternalHash = isHashLink && !['/', '/blog/'].includes(currentUrl.pathname);
+---
+
+<a
+  href={isHashLink && currentUrl.pathname !== '/' ? `/${href}` : href}
+  class={className}
+  data-link-type={
+    isHashLink ? 'hash' :
+    isHomepageHashLink ? 'homepage-hash' :
+    'normal'
+  }
+  on:click={`
+    // Se siamo su una pagina diversa dall'homepage e clicchiamo un hash link
+    if (${isHashLink} && window.location.pathname !== '/') {
+      event.preventDefault();
+      window.location.href = '/${href}';
+    }
+    
+    // Se siamo su una pagina diversa dall'homepage e clicchiamo un homepage-hash link
+    if (${isHomepageHashLink} && window.location.pathname !== '/') {
+      event.preventDefault();
+      window.location.href = '${href}';
+    }
+  `}
+>
+  <slot />
+</a>

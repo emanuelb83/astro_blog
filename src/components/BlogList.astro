@@ -1,0 +1,89 @@
+---
+// Importa le funzioni necessarie da Astro
+import { getCollection } from 'astro:content';
+
+// Ottieni tutti gli articoli dalla cartella content/blog
+const allArticles = await getCollection('blog');
+
+// Ordina gli articoli per data (dal più recente)
+const sortedArticles = allArticles.sort((a, b) => 
+  new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+// Funzione per calcolare "tempo fa"
+function timeAgo(date) {
+  const now = new Date();
+  const pubDate = new Date(date);
+  const diffInSeconds = Math.floor((now - pubDate) / 1000);
+  
+  const intervals = {
+    anno: 31536000,
+    mese: 2592000,
+    settimana: 604800,
+    giorno: 86400,
+    ora: 3600,
+    minuto: 60
+  };
+  
+  for (const [unit, seconds] of Object.entries(intervals)) {
+    const interval = Math.floor(diffInSeconds / seconds);
+    if (interval >= 1) {
+      return interval === 1 ? `1 ${unit} fa` : `${interval} ${unit}${unit === 'mese' ? 'i' : ''} fa`;
+    }
+  }
+  
+  return 'poco fa';
+}
+
+// Mappa i colori delle categorie
+const categoryColors = {
+  'ARCHITETTURA': 'text-tech-blue',
+  'SVILUPPO': 'text-tech-purple',
+  'PERFORMANCE': 'text-pink-500',
+  'NETWORKING': 'text-green-500',
+  'DEMO': 'text-orange-500',
+  'ROADMAP': 'text-cyan-500'
+};
+
+const linkColors = {
+  'ARCHITETTURA': 'text-tech-blue hover:text-blue-400',
+  'SVILUPPO': 'text-tech-purple hover:text-purple-400',
+  'PERFORMANCE': 'text-pink-500 hover:text-pink-400',
+  'NETWORKING': 'text-green-500 hover:text-green-400',
+  'DEMO': 'text-orange-500 hover:text-orange-400',
+  'ROADMAP': 'text-cyan-500 hover:text-cyan-400'
+};
+---
+<section id="blog" class="py-20 px-6">
+  <div class="container mx-auto">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">Dev Blog & Aggiornamenti</h2>
+        <p class="text-xl text-slate-300">Seguici nel nostro percorso di sviluppo</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedArticles.map((article) => (
+          <article class="blog-card bg-slate-800/50 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <span class={`text-sm ${categoryColors[article.data.category]} font-medium`}>
+                {article.data.category}
+              </span>
+              <span class="text-sm text-slate-400">
+                {timeAgo(article.data.pubDate)}
+              </span>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">{article.data.title}</h3>
+            <p class="text-slate-300 mb-4">{article.data.description}</p>
+            <a 
+              href={`/blog/${article.slug}`} 
+              class={`${linkColors[article.data.category]} font-medium`}
+            >
+              Leggi tutto ?
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

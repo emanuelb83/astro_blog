@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<BaseLayout title="Dev Blog | Distributed Interactive Platform" description="Ultimi articoli e aggiornamenti sul progetto.">
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <h1 class="text-4xl font-bold mb-10 text-center">Tutti gli articoli</h1>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map(post => (
+          <article class="bg-slate-800/50 rounded-xl p-6">
+            <div class="flex justify-between mb-4 text-sm text-slate-400">
+              <span>{post.data.category}</span>
+              <span>{post.data.pubDate.toDateString()}</span>
+            </div>
+            <h2 class="text-xl font-semibold mb-2">{post.data.title}</h2>
+            <p class="text-slate-300 mb-4">{post.data.description}</p>
+            <a href={`/blog/${post.slug}`} class="text-tech-blue hover:underline">Leggi tutto →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

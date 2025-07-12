@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, getEntryBySlug } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug }
+  }));
+}
+
+const { slug } = Astro.params;
+const post = await getEntryBySlug('blog', slug);
+if (!post) throw new Error(`Articolo non trovato: ${slug}`);
+
+const { title, description, pubDate, category } = post.data;
+const { Content } = await post.render();
+
+const formattedDate = new Date(pubDate).toLocaleDateString('it-IT', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="max-w-3xl mx-auto px-4 py-8">
+    <header class="blog-header mb-12">
+      <div class="blog-meta flex items-center gap-3 text-sm text-slate-400 uppercase tracking-wider">
+        {category && (
+          <span class="bg-slate-800 px-3 py-1 rounded-full">
+            {category}
+          </span>
+        )}
+        <span>{formattedDate}</span>
+      </div>
+      <h1 class="blog-title text-4xl md:text-5xl font-bold mt-4 mb-6 leading-tight">
+        {title}
+      </h1>
+      {description && (
+        <p class="blog-description text-xl text-slate-300 mb-8">
+          {description}
+        </p>
+      )}
+    </header>
+    
+    <div class="
+  max-w-3xl 
+  [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:mt-8 [&>h2]:mb-4
+  [&>p]:my-4 [&>p]:text-slate-300
+  [&>ul]:list-disc [&>ul]:pl-6
+  [&>pre]:bg-slate-800 [&>pre]:p-4 [&>pre]:rounded-lg
+">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
