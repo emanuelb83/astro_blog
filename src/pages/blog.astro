@@ -3,25 +3,68 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('blog');
+const categoryColors = {
+  'ARCHITETTURA': 'text-blue-500',
+  'SVILUPPO': 'text-purple-500',
+  'PERFORMANCE': 'text-pink-500',
+  'NETWORKING': 'text-green-500',
+  'DEMO': 'text-orange-500',
+  'ROADMAP': 'text-cyan-500'
+};
+
+const linkColors = {
+  'ARCHITETTURA': 'text-blue-500 hover:text-blue-400',
+  'SVILUPPO': 'text-purple-500 hover:text-purple-400',
+  'PERFORMANCE': 'text-pink-500 hover:text-pink-400',
+  'NETWORKING': 'text-green-500 hover:text-green-400',
+  'DEMO': 'text-orange-500 hover:text-orange-400',
+  'ROADMAP': 'text-cyan-500 hover:text-cyan-400'
+};
 ---
 
+
 <BaseLayout title="Dev Blog | Distributed Interactive Platform" description="Ultimi articoli e aggiornamenti sul progetto.">
-  <section class="py-20 px-6">
-    <div class="container mx-auto max-w-6xl">
-      <h1 class="text-4xl font-bold mb-10 text-center">Tutti gli articoli</h1>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map(post => (
-          <article class="bg-slate-800/50 rounded-xl p-6">
-            <div class="flex justify-between mb-4 text-sm text-slate-400">
-              <span>{post.data.category}</span>
-              <span>{post.data.pubDate.toDateString()}</span>
+<section class="py-20 px-6">
+  <div class="container mx-auto max-w-6xl">
+    <h1 class="text-4xl font-bold mb-10 text-center">Tutti gli articoli</h1>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {posts.map(post => {
+        const category = post.data.category.toUpperCase();
+        const categoryColor = categoryColors[category] || 'text-slate-400';
+        const linkColor = linkColors[category] || 'text-blue-500 hover:text-blue-400';
+        
+        return (
+          <article 
+            class="bg-slate-800/50 rounded-xl p-6 
+                   transition-all duration-200 ease-in-out
+                   hover:bg-slate-800/70 active:bg-slate-800/70
+                   hover:shadow-lg active:shadow-lg
+                   hover:-translate-y-1 active:translate-y-0
+                   group"
+          >
+            <div class="flex justify-between mb-4 text-sm">
+              <span class={`${categoryColor} font-medium`}>{post.data.category}</span>
+              <span class="text-slate-400">{post.data.pubDate.toDateString()}</span>
             </div>
-            <h2 class="text-xl font-semibold mb-2">{post.data.title}</h2>
-            <p class="text-slate-300 mb-4">{post.data.description}</p>
-            <a href={`/blog/${post.slug}`} class="text-tech-blue hover:underline">Leggi tutto →</a>
+            <h2 class="text-xl font-semibold mb-2 text-white group-hover:text-white/90">
+              {post.data.title}
+            </h2>
+            <p class="text-slate-300 mb-4 group-hover:text-slate-300/90">
+              {post.data.description}
+            </p>
+            <a 
+              href={`/blog/${post.slug}`} 
+              class={`${linkColor} font-medium transition-colors duration-200 inline-flex items-center`}
+            >
+              Leggi tutto
+              <span class="ml-1 group-hover:translate-x-1 transition-transform duration-200">
+              →
+              </span>
+            </a>
           </article>
-        ))}
-      </div>
+        );
+      })}
     </div>
-  </section>
+  </div>
+</section>
 </BaseLayout>
